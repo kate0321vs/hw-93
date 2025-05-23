@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -21,8 +22,12 @@ export class AlbumsController {
     private albumModel: Model<AlbumDocument>,
   ) {}
   @Get()
-  getAll() {
-    return this.albumModel.find();
+  getAll(@Query('artist') id_artist?: string) {
+    if (id_artist) {
+      return this.albumModel.find({ artist: id_artist });
+    } else {
+      return this.albumModel.find();
+    }
   }
   @Get(':id')
   getAlbum(@Param('id') id: string) {
