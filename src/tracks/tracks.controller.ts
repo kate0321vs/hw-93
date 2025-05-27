@@ -5,13 +5,15 @@ import {
   Get,
   Param,
   Post,
-  Query, UseGuards,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { TrackDocument } from '../schemas/track.schema';
 import { CreateTrackDto } from './create-track.dto';
 import { TokenAuthGuard } from '../token-auth/token-auth.guard';
+import { RoleAuthGuard } from '../role-auth/role-auth.guard';
 
 @Controller('tracks')
 export class TracksController {
@@ -38,6 +40,7 @@ export class TracksController {
     });
     return track.save();
   }
+  @UseGuards(RoleAuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.trackModel.deleteOne({ _id: id });

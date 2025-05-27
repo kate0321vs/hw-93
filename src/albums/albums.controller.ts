@@ -16,6 +16,7 @@ import { AlbumDocument } from '../schemas/album.schema';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateAlbumDto } from './create-album.dto';
 import { TokenAuthGuard } from '../token-auth/token-auth.guard';
+import { RoleAuthGuard } from '../role-auth/role-auth.guard';
 
 @Controller('albums')
 export class AlbumsController {
@@ -53,6 +54,7 @@ export class AlbumsController {
     });
     return album.save();
   }
+  @UseGuards(RoleAuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.albumModel.deleteOne({ _id: id });

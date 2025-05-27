@@ -15,6 +15,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateArtistDto } from './create-artist.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { TokenAuthGuard } from '../token-auth/token-auth.guard';
+import { RoleAuthGuard } from '../role-auth/role-auth.guard';
 
 @Controller('artists')
 export class ArtistsController {
@@ -48,6 +49,7 @@ export class ArtistsController {
     });
     return artist.save();
   }
+  @UseGuards(RoleAuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.artistModel.deleteOne({ _id: id });
