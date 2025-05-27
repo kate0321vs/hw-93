@@ -5,6 +5,7 @@ import { User, UserDocument } from '../schemas/uaer.schema';
 import { RegisterUserDto } from './register-user.dto';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { TokenAuthGuard } from '../token-auth/token-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -25,5 +26,13 @@ export class UsersController {
   @Post('/sessions')
   login(@Req() req: Request<{ user: User }>) {
     return req.user;
+  }
+
+  @UseGuards(TokenAuthGuard)
+  @Post('/logout')
+  async logout(@Req() req: Request<{ user: User }>) {
+    const user = req.user as UserDocument;
+    user.generateToken();
+    await user.save();
   }
 }
