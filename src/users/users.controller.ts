@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '../schemas/uaer.schema';
+import { User, UserDocument } from '../schemas/user.schema';
 import { RegisterUserDto } from './register-user.dto';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -17,6 +17,7 @@ export class UsersController {
       email: registerUserDto.email,
       displayName: registerUserDto.displayName,
       password: registerUserDto.password,
+      role: registerUserDto.role,
     });
     user.generateToken();
     return user.save();

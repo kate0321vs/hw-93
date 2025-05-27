@@ -10,6 +10,7 @@ import { TracksController } from './tracks/tracks.controller';
 import { Track, TrackSchema } from './schemas/track.schema';
 import { UsersController } from './users/users.controller';
 import { AuthService } from './auth/auth.service';
+import { User, UserSchema } from './schemas/user.schema';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthService } from './auth/auth.service';
     MongooseModule.forFeature([{ name: Artist.name, schema: ArtistSchema }]),
     MongooseModule.forFeature([{ name: Album.name, schema: AlbumSchema }]),
     MongooseModule.forFeature([{ name: Track.name, schema: TrackSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [
     AppController,
