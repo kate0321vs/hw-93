@@ -16,6 +16,8 @@ export class Track {
   album: AlbumDocument;
   @Prop({ required: true })
   duration: string;
+  @Prop({ required: true })
+  number: number;
 }
 
 export const TrackSchema = SchemaFactory.createForClass(Track);

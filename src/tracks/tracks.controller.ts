@@ -32,6 +32,7 @@ export class TracksController {
       album: createTrackDto.album,
       name: createTrackDto.name,
       duration: createTrackDto.duration,
+      number: createTrackDto.number,
     });
     return track.save();
   }
